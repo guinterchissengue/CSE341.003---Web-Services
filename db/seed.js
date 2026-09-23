@@ -1,43 +1,45 @@
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+
+require('dotenv').config();
 const mongodb = require('./connect');
 
 const contacts = [
   {
-    firstName: 'Ana',
-    lastName: 'Machava',
-    email: 'ana.machava@example.com',
-    favoriteColor: 'Azul',
-    birthday: '1998-04-12'
+    firstName: "John",
+    lastName: "Doe",
+    email: "johndoe@test.com",
+    favoriteColor: "Blue",
+    birthday: "1990-01-01"
   },
   {
-    firstName: 'Bruno',
-    lastName: 'Sitoe',
-    email: 'bruno.sitoe@example.com',
-    favoriteColor: 'Verde',
-    birthday: '1995-11-23'
+    firstName: "Jane",
+    lastName: "Doe",
+    email: "janedoe@test.com",
+    favoriteColor: "Red",
+    birthday: "1992-02-02"
   },
   {
-    firstName: 'Carla',
-    lastName: 'Nhantumbo',
-    email: 'carla.nhantumbo@example.com',
-    favoriteColor: 'Vermelho',
-    birthday: '2000-07-05'
+    firstName: "Sarah",
+    lastName: "Smith",
+    email: "sarahsmith@test.com",
+    favoriteColor: "Yellow",
+    birthday: "1995-05-05"
   }
 ];
 
 mongodb.initDb((err) => {
   if (err) {
     console.error('Erro ao conectar ao MongoDB:', err);
-    process.exit(1);
+  } else {
+    mongodb.getDb().collection('contacts').insertMany(contacts)
+      .then((result) => {
+        console.log(`${result.insertedCount} contatos inseridos com sucesso!`);
+        process.exit();
+      })
+      .catch((error) => {
+        console.error('Erro ao inserir contatos:', error);
+        process.exit(1);
+      });
   }
-
-  const db = mongodb.getDb();
-  db.collection('contacts').insertMany(contacts)
-    .then((result) => {
-      console.log(`${result.insertedCount} contactos inseridos com sucesso.`);
-      process.exit(0);
-    })
-    .catch((err) => {
-      console.error('Erro ao inserir contactos:', err);
-      process.exit(1);
-    });
 });
