@@ -1,0 +1,15 @@
+### Get all contacts (Local)
+GET http://localhost:8080/contacts
+
+### Get contact by ID (Local)
+### Replace the ID below with a real _id from your MongoDB collection
+GET http://localhost:8080/contacts/660000000000000000000001
+
+###
+
+### Get all contacts (Render)
+GET https://cse341-003-web-services.onrender.com
+
+### Get contact by ID (Render)
+### Replace the ID below with a real _id from your MongoDB collection
+GET https://cse341-003-web-services.onrender.com
