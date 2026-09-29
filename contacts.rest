@@ -1,29 +1,77 @@
-### Obter todos os contactos (Local)
-GET http://localhost:8080/contacts
+### ------------------------------------------------------------
+### Contacts API - REST Client test file
+### Use the "Send Request" link above each request (VS Code REST Client)
+### ------------------------------------------------------------
 
-### Criar novo contacto (Local)
-POST http://localhost:8080/contacts HTTP/1.1
-content-type: application/json
+@localUrl = http://localhost:8080
+@renderUrl = https://cse341-003-web-services.onrender.com
+
+### ===================== LOCAL =====================
+
+### Get all contacts (local)
+GET {{localUrl}}/contacts
+
+### Get contact by id (local) - replace the id with a real _id from MongoDB
+GET {{localUrl}}/contacts/<CONTACT_ID>
+
+### Create a new contact (local) - returns the new contact id
+POST {{localUrl}}/contacts
+Content-Type: application/json
 
 {
   "firstName": "Ana",
   "lastName": "Silva",
   "email": "ana.silva@test.com",
-  "favoriteColor": "Azul",
+  "favoriteColor": "Blue",
   "birthday": "1995-04-12"
 }
 
-### Atualizar contacto (Local - substitua pelo ID retornado no POST)
-PUT http://localhost:8080/contacts/<ID_DO_CONTACTO> HTTP/1.1
-content-type: application/json
+### Update a contact (local) - replace the id with the one returned by POST
+PUT {{localUrl}}/contacts/<CONTACT_ID>
+Content-Type: application/json
 
 {
   "firstName": "Ana",
   "lastName": "Santos",
   "email": "ana.santos@test.com",
-  "favoriteColor": "Verde",
+  "favoriteColor": "Green",
   "birthday": "1995-04-12"
 }
 
-### Apagar contacto (Local)
-DELETE http://localhost:8080/contacts/<ID_DO_CONTACTO> HTTP/1.1
+### Delete a contact (local)
+DELETE {{localUrl}}/contacts/<CONTACT_ID>
+
+### ===================== RENDER =====================
+
+### Get all contacts (Render)
+GET {{renderUrl}}/contacts
+
+### Get contact by id (Render) - replace the id with a real _id from MongoDB
+GET {{renderUrl}}/contacts/<CONTACT_ID>
+
+### Create a new contact (Render) - returns the new contact id
+POST {{renderUrl}}/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Ana",
+  "lastName": "Silva",
+  "email": "ana.silva@test.com",
+  "favoriteColor": "Blue",
+  "birthday": "1995-04-12"
+}
+
+### Update a contact (Render) - replace the id with the one returned by POST
+PUT {{renderUrl}}/contacts/<CONTACT_ID>
+Content-Type: application/json
+
+{
+  "firstName": "Ana",
+  "lastName": "Santos",
+  "email": "ana.santos@test.com",
+  "favoriteColor": "Green",
+  "birthday": "1995-04-12"
+}
+
+### Delete a contact (Render)
+DELETE {{renderUrl}}/contacts/<CONTACT_ID>
