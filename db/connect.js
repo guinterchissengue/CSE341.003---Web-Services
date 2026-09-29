@@ -1,13 +1,10 @@
-const dns = require('dns');
-dns.setServers(['8.8.8.8', '1.1.1.1']);
-
-const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv');
 dotenv.config();
+const MongoClient = require('mongodb').MongoClient;
 
 let _db;
 
-// Initialize database connection
+// Initialize the database connection
 const initDb = (callback) => {
   if (_db) {
     console.log('Database is already initialized!');
@@ -15,7 +12,7 @@ const initDb = (callback) => {
   }
   MongoClient.connect(process.env.MONGODB_URI)
     .then((client) => {
-      _db = client.db();
+      _db = client;
       callback(null, _db);
     })
     .catch((err) => {
@@ -23,7 +20,7 @@ const initDb = (callback) => {
     });
 };
 
-// Retrieve active database instance
+// Retrieve the initialized database instance
 const getDb = () => {
   if (!_db) {
     throw Error('Database not initialized');
