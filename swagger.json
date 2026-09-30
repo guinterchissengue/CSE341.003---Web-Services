@@ -41,104 +41,198 @@
     },
     "/contacts": {
       "get": {
-        "description": "",
+        "tags": [
+          "Contacts"
+        ],
+        "summary": "Get all contacts",
+        "description": "Returns every contact stored in the contacts collection.",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "List of contacts.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Contact"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Contacts"
+        ],
+        "summary": "Create a new contact",
+        "description": "Creates a contact. All fields are required. Returns the id of the new contact.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Contact data. All fields are required.",
+            "schema": {
+              "$ref": "#/definitions/ContactInput"
+            }
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Contact created successfully.",
+            "schema": {
+              "$ref": "#/definitions/CreatedContact"
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "A required field is missing or invalid.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       }
     },
     "/contacts/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Contacts"
+        ],
+        "summary": "Get a contact by id",
+        "description": "Returns a single contact that matches the given id.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "MongoDB ObjectId of the contact (24 hexadecimal characters)."
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "The requested contact.",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Invalid contact id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Contact not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Contacts"
+        ],
+        "summary": "Update a contact",
+        "description": "Updates the contact that matches the given id. All fields are required.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "MongoDB ObjectId of the contact to update."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "New contact data. All fields are required.",
+            "schema": {
+              "$ref": "#/definitions/ContactInput"
+            }
           }
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "Contact updated successfully (no content)."
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Invalid id or a required field is missing.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Contact not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Contacts"
+        ],
+        "summary": "Delete a contact",
+        "description": "Deletes the contact that matches the given id.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "MongoDB ObjectId of the contact to delete."
           }
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "Contact deleted successfully (no content)."
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Invalid contact id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Contact not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       }
