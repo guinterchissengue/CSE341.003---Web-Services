@@ -1,15 +1,77 @@
-### Get all contacts (Local)
-GET https://cse341-003-web-services.onrender.com/contacts
+### ------------------------------------------------------------
+### Contacts API - REST Client test file
+### Use the "Send Request" link above each request (VS Code REST Client)
+### ------------------------------------------------------------
 
-### Get contact by ID (Local)
-### Replace the ID below with a real _id from your MongoDB collection
-GET https://cse341-003-web-services.onrender.com/contacts/6ab3e9be65ec1ecb91ec8736
+@localUrl = http://localhost:8081
+@renderUrl = https://cse341-003-web-services.onrender.com
 
-###
+### ===================== LOCAL =====================
+
+### Get all contacts (local)
+GET {{localUrl}}/contacts
+
+### Get contact by id (local) - replace the id with a real _id from MongoDB
+GET {{localUrl}}/contacts/66f9a1b2c3d4e5f607182930
+
+### Create a new contact (local) - returns the new contact id
+POST {{localUrl}}/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Ana",
+  "lastName": "Silva",
+  "email": "ana.silva@test.com",
+  "favoriteColor": "Blue",
+  "birthday": "1995-04-12"
+}
+
+### Update a contact (local) - replace the id with the one returned by POST
+PUT {{localUrl}}/contacts/66f9a1b2c3d4e5f607182930
+Content-Type: application/json
+
+{
+  "firstName": "Ana",
+  "lastName": "Santos",
+  "email": "ana.santos@test.com",
+  "favoriteColor": "Green",
+  "birthday": "1995-04-12"
+}
+
+### Delete a contact (local)
+DELETE {{localUrl}}/contacts/66f9a1b2c3d4e5f607182930
+
+### ===================== RENDER =====================
 
 ### Get all contacts (Render)
-GET https://YOUR-RENDER-SERVICE-NAME.onrender.com/contacts
+GET {{renderUrl}}/contacts
 
-### Get contact by ID (Render)
-### Replace the ID below with a real _id from your MongoDB collection
-GET https://YOUR-RENDER-SERVICE-NAME.onrender.com/contacts/660000000000000000000001
+### Get contact by id (Render) - replace the id with a real _id from MongoDB
+GET {{renderUrl}}/contacts/66f9a1b2c3d4e5f607182930
+
+### Create a new contact (Render) - returns the new contact id
+POST {{renderUrl}}/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Ana",
+  "lastName": "Silva",
+  "email": "ana.silva@test.com",
+  "favoriteColor": "Blue",
+  "birthday": "1995-04-12"
+}
+
+### Update a contact (Render) - replace the id with the one returned by POST
+PUT {{renderUrl}}/contacts/66f9a1b2c3d4e5f607182930
+Content-Type: application/json
+
+{
+  "firstName": "Ana",
+  "lastName": "Santos",
+  "email": "ana.santos@test.com",
+  "favoriteColor": "Green",
+  "birthday": "1995-04-12"
+}
+
+### Delete a contact (Render)
+DELETE {{renderUrl}}/contacts/66f9a1b2c3d4e5f607182930
