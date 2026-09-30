@@ -3,39 +3,39 @@
 ### Use the "Send Request" link above each request (VS Code REST Client)
 ### ------------------------------------------------------------
 
-@localUrl = http://localhost:8080
+@localUrl = http://localhost:8081/contacts
 @renderUrl = https://cse341-003-web-services.onrender.com
 
 ### ===================== LOCAL =====================
 
 ### Get all contacts (local)
-GET {{localUrl}}/contacts
+GET http://localhost:8081/contacts/6ab3eba2ddb8420a964f7d2d
 
 ### Get contact by id (local) - replace the id with a real _id from MongoDB
-GET {{localUrl}}/contacts/<CONTACT_ID>
+GET http://localhost:8081/contacts/6ab3eba2ddb8420a964f7d2e
 
 ### Create a new contact (local) - returns the new contact id
-POST {{localUrl}}/contacts
+POST http://localhost:8081/contacts/6ab3eba2ddb8420a964f7d2d
 Content-Type: application/json
 
 {
-  "firstName": "Ana",
-  "lastName": "Silva",
-  "email": "ana.silva@test.com",
-  "favoriteColor": "Blue",
-  "birthday": "1995-04-12"
+   "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@test.com",
+    "favoriteColor": "Blue",
+    "birthday": "1990-01-01"
 }
 
 ### Update a contact (local) - replace the id with the one returned by POST
-PUT {{localUrl}}/contacts/<CONTACT_ID>
+PUT http://localhost:8081/contacts/6ab3eba2ddb8420a964f7d2d
 Content-Type: application/json
 
 {
-  "firstName": "Ana",
-  "lastName": "Santos",
-  "email": "ana.santos@test.com",
-  "favoriteColor": "Green",
-  "birthday": "1995-04-12"
+   "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@test.com",
+    "favoriteColor": "Blue",
+    "birthday": "1990-01-01"
 }
 
 ### Delete a contact (local)
@@ -54,11 +54,11 @@ POST {{renderUrl}}/contacts
 Content-Type: application/json
 
 {
-  "firstName": "Ana",
-  "lastName": "Silva",
-  "email": "ana.silva@test.com",
-  "favoriteColor": "Blue",
-  "birthday": "1995-04-12"
+   "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@test.com",
+    "favoriteColor": "Blue",
+    "birthday": "1990-01-01"
 }
 
 ### Update a contact (Render) - replace the id with the one returned by POST
@@ -66,11 +66,11 @@ PUT {{renderUrl}}/contacts/<CONTACT_ID>
 Content-Type: application/json
 
 {
-  "firstName": "Ana",
-  "lastName": "Santos",
-  "email": "ana.santos@test.com",
-  "favoriteColor": "Green",
-  "birthday": "1995-04-12"
+   "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@test.com",
+    "favoriteColor": "Blue",
+    "birthday": "1990-01-01"
 }
 
 ### Delete a contact (Render)
