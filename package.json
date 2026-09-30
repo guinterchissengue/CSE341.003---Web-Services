@@ -18,3 +18,8 @@
     "nodemon": "^3.1.4"
   }
 }
+
+"scripts": {
+    "start": "node server.js",
+    "swagger": "node swagger.js"
+  },
