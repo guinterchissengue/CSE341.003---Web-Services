@@ -1,0 +1,372 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Explore Mozambique API",
+    "version": "1.0.0",
+    "description": "Academic REST API for discovering and managing tourist, cultural, and natural attractions in Mozambique."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8081",
+      "description": "Local Development Server"
+    },
+    {
+      "url": "https://explore-mozambique-api.onrender.com",
+      "description": "Render Public Production Server (Replace with your actual URL)"
+    }
+  ],
+  "paths": {
+    "/places": {
+      "get": {
+        "summary": "Get all places",
+        "tags": ["Places"],
+        "responses": {
+          "200": {
+            "description": "List of places retrieved successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new place",
+        "tags": ["Places"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlaceInput"
+              },
+              "example": {
+                "name": "Ponta do Ouro",
+                "description": "A popular coastal destination known for beaches, diving, and dolphins.",
+                "city": "Ponta do Ouro",
+                "province": "Maputo",
+                "type": "beach",
+                "averageCost": 2000,
+                "rating": 4.6,
+                "latitude": -26.845,
+                "longitude": 32.885,
+                "openingHours": "Open 24 hours",
+                "featured": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Place created successfully"
+          },
+          "400": {
+            "description": "Validation error or invalid input data"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/places/{id}": {
+      "get": {
+        "summary": "Get a place by ID",
+        "tags": ["Places"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid MongoDB ObjectId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Place retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid ObjectId format"
+          },
+          "404": {
+            "description": "Place not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing place",
+        "tags": ["Places"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid MongoDB ObjectId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlaceInput"
+              },
+              "example": {
+                "name": "Ponta do Ouro Marine Reserve",
+                "description": "Updated description with enhanced protected marine zone details.",
+                "city": "Ponta do Ouro",
+                "province": "Maputo",
+                "type": "reserve",
+                "averageCost": 2500,
+                "rating": 4.9,
+                "latitude": -26.845,
+                "longitude": 32.885,
+                "openingHours": "06:00 - 18:00",
+                "featured": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Place updated successfully"
+          },
+          "400": {
+            "description": "Validation error or invalid ObjectId format"
+          },
+          "404": {
+            "description": "Place not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a place by ID",
+        "tags": ["Places"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid MongoDB ObjectId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Place deleted successfully"
+          },
+          "400": {
+            "description": "Invalid ObjectId format"
+          },
+          "404": {
+            "description": "Place not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/reviews": {
+      "get": {
+        "summary": "Get all reviews",
+        "tags": ["Reviews"],
+        "responses": {
+          "200": {
+            "description": "List of reviews retrieved successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a review for a place",
+        "tags": ["Reviews"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewInput"
+              },
+              "example": {
+                "placeId": "65f1a2b3c4d5e6f7a8b9c0d1",
+                "visitorName": "Carlos Tembe",
+                "rating": 5,
+                "comment": "Incredible crystal clear waters and friendly locals!"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Review created successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "404": {
+            "description": "Referenced place does not exist"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/reviews/{id}": {
+      "get": {
+        "summary": "Get a review by ID",
+        "tags": ["Reviews"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid MongoDB ObjectId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid ObjectId format"
+          },
+          "404": {
+            "description": "Review not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing review",
+        "tags": ["Reviews"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid MongoDB ObjectId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewInput"
+              },
+              "example": {
+                "placeId": "65f1a2b3c4d5e6f7a8b9c0d1",
+                "visitorName": "Carlos Tembe",
+                "rating": 4,
+                "comment": "Great experience overall, slightly crowded in December."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Review updated successfully"
+          },
+          "400": {
+            "description": "Validation error or invalid ObjectId format"
+          },
+          "404": {
+            "description": "Review or referenced place not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a review by ID",
+        "tags": ["Reviews"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid MongoDB ObjectId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review deleted successfully"
+          },
+          "400": {
+            "description": "Invalid ObjectId format"
+          },
+          "404": {
+            "description": "Review not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PlaceInput": {
+        "type": "object",
+        "required": ["name", "description", "city", "province", "type", "averageCost"],
+        "properties": {
+          "name": { "type": "string", "example": "Ponta do Ouro" },
+          "description": { "type": "string", "example": "A popular coastal destination in southern Mozambique." },
+          "city": { "type": "string", "example": "Ponta do Ouro" },
+          "province": { "type": "string", "example": "Maputo" },
+          "type": {
+            "type": "string",
+            "enum": ["beach", "national-park", "historical", "cultural", "island", "waterfall", "reserve", "museum", "monument", "other"],
+            "example": "beach"
+          },
+          "averageCost": { "type": "number", "example": 2000 },
+          "rating": { "type": "number", "minimum": 0, "maximum": 5, "example": 4.6 },
+          "latitude": { "type": "number", "example": -26.845 },
+          "longitude": { "type": "number", "example": 32.885 },
+          "openingHours": { "type": "string", "example": "Open 24 hours" },
+          "featured": { "type": "boolean", "example": true }
+        }
+      },
+      "ReviewInput": {
+        "type": "object",
+        "required": ["placeId", "visitorName", "rating", "comment"],
+        "properties": {
+          "placeId": { "type": "string", "example": "65f1a2b3c4d5e6f7a8b9c0d1" },
+          "visitorName": { "type": "string", "example": "Carlos Tembe" },
+          "rating": { "type": "number", "minimum": 1, "maximum": 5, "example": 5 },
+          "comment": { "type": "string", "example": "Incredible beach and very clean water!" }
+        }
+      }
+    }
+  }
+}
