@@ -41,7 +41,7 @@ app.use('/reviews', reviewsRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8081;
 
 const startServer = async () => {
   try {
