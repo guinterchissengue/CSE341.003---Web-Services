@@ -12,12 +12,14 @@ const initDb = (callback) => {
 
   MongoClient.connect(process.env.MONGODB_URI)
     .then((client) => {
-      // Use the database defined in the connection string
-      // (or DB_NAME from the .env file, if provided)
-      _db = client.db(process.env.DB_NAME || undefined);
+      // Força a base de dados exata do projeto atual: explore-mozambique
+      const dbName = process.env.DB_NAME || 'explore-mozambique';
+      _db = client.db(dbName);
+      console.log(`Connected successfully to database: ${_db.databaseName}`);
       callback(null, _db);
     })
     .catch((err) => {
+      console.error('Database connection error:', err);
       callback(err);
     });
 };
